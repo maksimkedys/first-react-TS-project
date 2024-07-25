@@ -2,6 +2,7 @@ import Header from "./components/Header";
 import goalsImage from "./assets/goals.jpg";
 import { useState } from "react";
 import CourceGolaList from "./components/CourceGolaList";
+import NewGoal from "./components/NewGoal";
 
 export interface CourceGoalType {
   title: string;
@@ -12,11 +13,11 @@ export interface CourceGoalType {
 export default function App() {
   const [goals, setGoals] = useState<CourceGoalType[]>([]);
 
-  function handleAddGoal() {
+  function handleAddGoal(goal: string, summary: string) {
     const newGoal: CourceGoalType = {
       id: Math.random(),
-      title: "Buy a car",
-      desc: "I love cars",
+      title: goal,
+      desc: summary,
     };
 
     setGoals((prevGoals) => {
@@ -31,9 +32,9 @@ export default function App() {
   return (
     <main>
       <Header image={{ src: goalsImage, alt: "A list of goals" }}>
-        <h1>Your Cource Goals</h1>
+        <h1>Your Goals</h1>
       </Header>
-      <button onClick={handleAddGoal}>Add Goal</button>
+      <NewGoal onAddGoal={handleAddGoal} />
       <CourceGolaList goals={goals} onDeleteGoal={handleDeleteGoal} />
     </main>
   );
